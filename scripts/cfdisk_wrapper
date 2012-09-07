@@ -1,0 +1,105 @@
+#!/bin/bash
+#
+# (C) 2008-2010 Joaquim Boura <x-un-i@berlios.de>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this package; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+#
+# On Debian GNU/Linux systems, the text of the GPL license can be
+# found in /usr/share/common-licenses/GPL.
+#
+#--------------------------------------------------------------------------
+
+if [ "$DEBUG" = "TRUE" ]; then
+	set -x
+fi
+
+# $1  program to use to make the partitions
+# $2  disk that will partitioned
+
+PROG=$1
+DISK=$2
+
+PARTITION_BEFORE="$(mktemp -p /tmp/ .partition_before.XXXXXXXXXX)"
+
+PARTITION_AFTER="$(mktemp -p /tmp/ .partition_after.XXXXXXXXXX)"
+
+#-------------------------------------------------
+# 1. save old partition table into file b4
+#-------------------------------------------------
+fdisk -l "$DISK" | grep "^${DISK}" > $PARTITION_BEFORE
+#
+#-------------------------------------------------
+# 2. call partiton program
+#-------------------------------------------------
+${PROG} ${DISK}
+#
+#-------------------------------------------------
+# 3. get the new partition save it into after
+#-------------------------------------------------
+fdisk -l "$DISK" | grep "^${DISK}" > $PARTITION_AFTER
+#
+# Only go on if both files exist
+# take care when PARTITION_BEFORE was empty
+# otherwise deny any work 
+#-------------------------------------------------
+# 4. now compare and if there are changes purpose user to format
+# the "newly" created partitions
+#-------------------------------------------------
+#
+if [ -s $PARTITION_AFTER -a -s $PARTITION_BEFORE ]; then
+	awk  '{var = $(NF-1); if (var == "/") {var = $(NF-4);} printf("%s %s\n", $1, var);}'  $PARTITION_AFTER | \
+	while read part id; do
+		old_line=$(grep -w "${part}" $PARTITION_BEFORE)
+		new_line=$(grep -w "${part}" $PARTITION_AFTER)
+
+		if [ "$new_line" = "$old_line" ]; then
+			echo "nothing to be done for partition ${part}"
+		else
+			case $id in
+			82)
+				mkswap ${part}
+				;;
+			83)
+				mkfs.ext4 ${part}
+				;;
+			*)
+				echo "Skipping ${part} ..."
+				;;
+			esac
+		fi
+	done 
+elif [ -s $PARTITION_AFTER -a ! -s $PARTITION_BEFORE ]; then
+	awk  '{var = $(NF-1); if (var == "/") {var = $(NF-4);} printf("%s %s\n", $1, var);}'  $PARTITION_AFTER | \
+	while read part id; do
+		case $id in
+		82)
+			mkswap ${part}
+			;;
+		83)
+			mkfs.ext4 ${part}
+			;;
+		*)
+			echo "Skipping ${part} ..."
+			;;
+		esac
+	done 
+else
+	: # do nothing, cleanup and leave
+fi
+
+test -e "$PARTITION_BEFORE" && rm -f "$PARTITION_BEFORE"
+test -e "$PARTITION_AFTER"  && rm -f "$PARTITION_AFTER"
+

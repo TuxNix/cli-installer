@@ -1,0 +1,112 @@
+#!/bin/bash
+#
+# (C) 2008-2010 Joaquim Boura <x-un-i@berlios.de>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this package; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+#
+# On Debian GNU/Linux systems, the text of the GPL license can be
+# found in /usr/share/common-licenses/GPL.
+#
+#--------------------------------------------------------------------------
+
+
+source /etc/default/distro
+
+
+user_home=$(getent passwd ${FLL_LIVE_USER} | cut -d : -f6)
+# kde
+user_kde_config_dir="/home/${FLL_LIVE_USER}/.kde/share/config"
+user_kde_medianotifierrc="${user_kde_config_dir}/medianotifierrc"
+# xfce
+user_xfce_volmanrc="${user_home}/.config/Thunar/volmanrc"
+# gnome ??
+
+#--------------------------------------------------------
+# disable all swaps
+function disable_all_swaps()
+{
+	local TempFile=`mktemp -p /tmp/ .XXXXXXXXXX`
+
+	swapon -s | awk '/^\/dev/{print $1}' > $TempFile
+	if [ -s "$TempFile" ]; then
+		while read part ; do
+			swapoff $part
+		done < $TempFile
+	fi
+        test -e ${TempFile} && rm -f ${TempFile}
+}
+
+#--------------------------------------------------------
+# disable automount in xfce or medianotifier popup in KDE
+function disable()
+{
+	if [ ! -d "${user_kde_config_dir}" ]; then
+		if [ -e "${user_xfce_volmanrc}" ]; then 
+			sed -i -e 's/AutomountDrives=TRUE/AutomountDrives=FALSE/' \
+				 -e 's/AutomountMedia=TRUE/AutomountMedia=FALSE/' \
+				 -e 's/Autobrowse=TRUE/Autobrowse=FALSE/' \
+				"${user_xfce_volmanrc}"
+		fi
+	else
+		cat <<EOF > "${user_kde_medianotifierrc}"
+[Auto Actions]
+media/cdwriter_unmounted=#NothinAction
+media/hdd_unmounted=#NothinAction
+media/removable_unmounted=#NothinAction
+EOF
+	fi
+
+	disable_all_swaps
+}
+
+#---------------------------------------------------------
+# reenable automount in xfce or medianotifier popup in KDE
+function reenable()
+{
+	udevadm trigger --subsystem-match=block
+	udevadm settle --timeout=30
+	if [ ! -d "${user_kde_config_dir}" ]; then
+		if [ -e "${user_xfce_volmanrc}" ]; then 
+			sed -i -e 's/AutomountDrives=FALSE/AutomountDrives=TRUE/' \
+				 -e 's/AutomountMedia=FALSE/AutomountMedia=TRUE/' \
+				 -e 's/Autobrowse=FALSE/Autobrowse=TRUE/' \
+				"${user_xfce_volmanrc}"
+		fi
+	else
+		 rm -f "${user_kde_medianotifierrc}"
+	fi
+	/etc/init.d/fll-fstab start
+	# also reactivate swap devices
+	swapon -a
+}
+
+
+# called with one parameter enable or disable
+
+if [ $# -ne 1 ] ; then
+	echo "usage: $0 enable|disable"
+else
+	if [ "$1" = "enable" ]; then
+		reenable
+	elif [ "$1" = "disable" ]; then
+		disable
+	else
+		echo "usage: $0 enable|disable"
+		exit 1
+	fi
+fi
+
+exit 0

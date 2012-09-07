@@ -1,0 +1,32 @@
+Source: cli-installer
+Section: admin
+Priority: extra
+Maintainer: Sebastian Görgen <zeppo@siduction.net>
+XSBC-Original-Maintainer: Stefan Lippers-Hollmann <s.l-h@gmx.de>
+Build-Depends: debhelper (>= 7.9.3)
+Standards-Version: 3.9.3
+Homepage: https://noc.sidux.com/cli-installer
+Vcs-Git: git://git.siduction.org/packages/siduction-repository/cliinstaller.git
+Vcs-Browser: http://git.siduction.org/?p=packages/siduction-repository/cliinstaller.git
+Home: http://svn.berlios.de/wsvn/fullstory/clinstaller/trunk/
+
+Package: cli-installer
+Architecture: all
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ fll-installer (>= 0.9.26),
+ siduction-scripts (>= 0.4.18),
+ fll-live-initscripts (>= 3.15.6),
+ psmisc,
+ ssft,
+ udev (>= 0.146),
+ util-linux (>= 2.16.1)
+Recommends: dialog
+Description: Cli installer for siduction
+ Minimal textmode GUI for installing a siduction system to disk for use on X-less or
+ GTK2-less systems.
+ .
+ The installer can be started through /usr/sbin/cli-installer.
+ .
+ This is a live-only package and should not be installed to an
+ ordinary system.
