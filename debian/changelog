@@ -1,17 +1,35 @@
-cli-installer (0.3.3) UNRELEASED; urgency=low
+cli-installer (0.3.3) unstable; urgency=low
 
+  [ Ovidiu Angelescu ]
   * Added closing bracket ">" in COPYRIGHT for zeppo's e-mail
   * Fixed changelog
   * Removed automount-popup since it's used only in kde and xfce
 
- -- Ovidiu Angelescu <convbsd@siduction.net> Sat, 08 Sept 2012 08:09:45 +0300
+  [ Alf Gaida ]
+  * Lintian-Warnings:
+    - cli-installer source: package-needs-versioned-debhelper-build-depends 9
+      (done)
+    - cli-installer source: changelog-should-mention-nmu
+      (done, added mysqlf and convbsd to uploaders)
+    - cli-installer source: source-nmu-has-incorrect-version-number 0.3.3
+      (fixed with uploaders
+    - cli-installer source: missing-field-in-dep5-copyright license
+      (paragraph at line 5) - fixed
+    - cli-installer: extended-description-line-too-long
+    - cli-installer: syntax-error-in-debian-changelog line 28 "badly formatted
+      trailer line" - fixed, if possible, use dch 
+  * unfixed: cli-installer: binary-without-manpage usr/sbin/cli-installer  
+  * unfixed: W: cli-installer source: unknown-field-in-dsc original-maintainer 
+  * .gitignore added 
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 08 Sep 2012 22:51:39 +0200
 
 cli-installer (0.3.2) unstable; urgency=low
 
   * Merge cliinstaller and fll-installer-common
   * Move on to siduction
 
- -- Sebastian Görgen <zeppo@siduction.net> Sat, 08 Sept 2012 00:48:45 +0200
+ -- Sebastian Görgen <zeppo@siduction.net  Sat, 08 Sept 2012 00:48:45 +0200
 
 cliinstaller (0.3.1) unstable; urgency=low
 

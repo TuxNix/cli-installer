@@ -1,0 +1,6 @@
+# debian debris
+debian/cli-installer.debhelper.log
+debian/cli-installer.substvars
+debian/cli-installer/
+debian/files
+
