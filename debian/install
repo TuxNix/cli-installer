@@ -7,4 +7,4 @@ scripts/fw-install-exec         usr/share/fll-installer-common
 scripts/install-gui.bash        usr/share/fll-installer-common 
 scripts/nonfree                 usr/share/fll-installer-common 
 scripts/um_all                  usr/share/fll-installer-common 
-
+man/cli-installer.8.gz          usr/share/man/man8
