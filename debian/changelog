@@ -1,11 +1,17 @@
- -- Sebastian Görgen <zeppo@siduction.net> Sat, 08 Sept 2012 00:48:45 +0200
+cli-installer (0.3.3) UNRELEASED; urgency=low
+
+  * Added closing bracket ">" in COPYRIGHT for zeppo's e-mail
+  * Fixed changelog
+  * Removed automount-popup since it's used only in kde and xfce
+
+ -- Ovidiu Angelescu <convbsd@siduction.net> Sat, 08 Sept 2012 08:09:45 +0300
 
 cli-installer (0.3.2) unstable; urgency=low
 
   * Merge cliinstaller and fll-installer-common
   * Move on to siduction
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 20 Jan 2011 03:23:45 +0100
+ -- Sebastian Görgen <zeppo@siduction.net> Sat, 08 Sept 2012 00:48:45 +0200
 
 cliinstaller (0.3.1) unstable; urgency=low
 
