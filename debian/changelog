@@ -29,7 +29,7 @@ cli-installer (0.3.2) unstable; urgency=low
   * Merge cliinstaller and fll-installer-common
   * Move on to siduction
 
- -- Sebastian Görgen <zeppo@siduction.net  Sat, 08 Sept 2012 00:48:45 +0200
+ -- Sebastian Görgen <zeppo@siduction.nt>  Sat, 08 Sept 2012 00:48:45 +0200
 
 cliinstaller (0.3.1) unstable; urgency=low
 
