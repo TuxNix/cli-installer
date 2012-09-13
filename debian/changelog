@@ -1,10 +1,15 @@
-cli-installer (0.3.3+nmu2) UNRELEASED; urgency=low
+cli-installer (0.3.4) unstable; urgency=low
 
+  [ Sebastian Görgen ]
   * Non-maintainer upload.
   * Add parted as partitioning tool
   * Add parted as dependency
 
- -- Sebastian Görgen <zeppo@siduction.net>  Sat, 08 Sep 2012 23:49:15 +0000
+  [ Alf Gaida ]
+  * rebuild fixes #845 
+  * change version from nmu to maintainer 
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 13 Sep 2012 23:50:00 +0200
 
 cli-installer (0.3.3+nmu1) UNRELEASED; urgency=low
 
