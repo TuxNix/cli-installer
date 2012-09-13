@@ -423,7 +423,7 @@ format_disk ()
 
 	if [ $? -eq 0 ]; then
 		msg="Please choose a partitioning program. Available programs are:"
-		programs_list="cfdisk fdisk"
+		programs_list="cfdisk fdisk parted"
 		SSFT_DEFAULT="${PARTITION_PROG}"
 		select_one "${title}" "${msg}" $programs_list
 		if [ $? -eq 0 ]; then

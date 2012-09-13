@@ -1,3 +1,11 @@
+cli-installer (0.3.3+nmu2) UNRELEASED; urgency=low
+
+  * Non-maintainer upload.
+  * Add parted as partitioning tool
+  * Add parted as dependency
+
+ -- Sebastian Görgen <zeppo@siduction.net>  Sat, 08 Sep 2012 23:49:15 +0000
+
 cli-installer (0.3.3+nmu1) UNRELEASED; urgency=low
 
   * Non-maintainer upload.
@@ -36,7 +44,7 @@ cli-installer (0.3.2) unstable; urgency=low
   * Merge cliinstaller and fll-installer-common
   * Move on to siduction
 
- -- Sebastian Görgen <zeppo@siduction.nt>  Sat, 08 Sept 2012 00:48:45 +0200
+ -- Sebastian Görgen <zeppo@siduction.net>  Sat, 08 Sept 2012 00:48:45 +0200
 
 cliinstaller (0.3.1) unstable; urgency=low
 
