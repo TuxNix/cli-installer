@@ -549,10 +549,6 @@ custom_root ()
 #			      -e 's/-/\\-/g' )"
 #}
 
-# Create a list of available partitions
-# and add those into the temp file
-/usr/share/fll-installer-common/disk -p 2>/dev/null > ${PARTITIONS_LIST}
-
 ### FUNCTIONS TO GET THE VALUES FOR THE VARIABLES THAT WILL BE PASSED LATER TO THE CONFIG FILE
 #-------------------------------------------------------------------------------------------------------------------------
 
@@ -589,6 +585,9 @@ select_fs ()
 
 choose_root () 
 {
+# Create a list of available partitions
+# and add those into the temp file (update partitions after partitioning)
+/usr/share/fll-installer-common/disk -p 2>/dev/null > ${PARTITIONS_LIST}
 	title="Install Partition"
 	msg="Choose a partition to install siduction onto.
 		Available partitions are:"
