@@ -1,3 +1,14 @@
+cli-installer (0.3.6) unstable; urgency=low
+
+  * removed XSBC-Original-Maintainer
+  * Standards 3.9.4
+  * new copyright format
+  * removed Homepage
+  * fix Source
+  * ref #1103
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 30 Mar 2013 15:44:42 +0100
+
 cli-installer (0.3.5) unstable; urgency=low
 
   [ Ovidiu Angelescu ]

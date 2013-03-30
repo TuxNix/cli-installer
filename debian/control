@@ -4,10 +4,8 @@ Priority: extra
 Maintainer: Sebastian Görgen <zeppo@siduction.net>
 Uploaders: Ovidiu Angelescu <convbsd@siduction.net>,
            Alf Gaida <agaida@siduction.org> 
-XSBC-Original-Maintainer: Stefan Lippers-Hollmann <s.l-h@gmx.de>
 Build-Depends: debhelper (>= 9)
-Standards-Version: 3.9.3
-Homepage: https://noc.sidux.com/cli-installer
+Standards-Version: 3.9.4
 Vcs-Git: git://git.siduction.org/packages/siduction-repository/cli-installer.git
 Vcs-Browser: http://git.siduction.org/?p=packages/siduction-repository/cli-installer.git
 

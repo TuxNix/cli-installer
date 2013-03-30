@@ -1,6 +1,6 @@
-Format: http://dep.debian.net/deps/dep5
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: cliinstaller
-Source: <http://svn.berlios.de/svnroot/repos/fullstory/cliinstaller/trunk/>
+Source: git://git.siduction.org/code/cliinstaller
 
 Files: *
 Copyright: 2012      Sebastian Görgen <zeppo@siduction.net>
@@ -10,7 +10,7 @@ License: GPL-2.0+
 
 Files: debian/*
 Copyright: 2012      Sebastian Görgen <zeppo@siduction.net>
-           2012      Alf Gaida <agaida@siduction.org>
+           2012-2013 Alf Gaida <agaida@siduction.org>
            2012      Angelescu Ovidiu <convbsd@siduction.net>
            2010-2012 Stefan Lippers-Hollmann <s.l-h@gmx.de>
            2009-2010 Nikolas Poniros <edhunter@sidux.com>
