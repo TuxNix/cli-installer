@@ -1,6 +1,7 @@
 #!/bin/sh                                                                   
 #                                                                                 
-# Copyright  (C) 2012      Sebastian Görgen <zeppo@siduction.net>                                      
+# Copyright  (C) 2012-2013 Alf Gaida <agaida@siduction.org>
+#                2012      Sebastian Görgen <zeppo@siduction.net>                                      
 #                2009-2010 Nikolas Poniros <edhunter@sidux.com>                                      
 #                          
 # heavily based on install-gui written by
@@ -25,14 +26,18 @@
 # found in /usr/share/common-licenses/GPL.                                        
 #                                                                                 
 # version: 0.2.9
-#--------------------------------------------------------------------------
+#-----------------------------------------------------------------------
 
-#Short description of the script:
-#The script creates the config file ($HOME/.sidconfig) needed by the fll-installer
-#and then calls the fll-installer to install siduction using said config file. 
-#Exit codes are: 0 if successful, 1 if user aborts before the config file is written
-#2 if user aborts after config file is written (whenever a user presses OK at an error message
-#it is considered as a user abort even if he has no other choice)
+# Short description of the script:
+# The script creates the config file ($HOME/.sidconfig) needed by the
+# fll-installer and then calls the fll-installer to install siduction
+# using said config file. 
+# Exit codes are:
+#     0 if successful,
+#     1 if user aborts before the config file is written
+#     2 if user aborts after config file is written (whenever a user
+#       presses OK at an error message
+# it is considered as a user abort even if he has no other choice)
 
 call_help ()
 {
