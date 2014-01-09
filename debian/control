@@ -13,9 +13,9 @@ Package: cli-installer
 Architecture: all
 Depends: ${shlibs:Depends},
  ${misc:Depends},
- fll-installer (>= 2014.01.09),
+ fll-installer (>= 2014.01.10),
  siduction-scripts (>= 0.4.18),
- fll-live-initscripts (>= 2014.01.09),
+ fll-live-initscripts (>= 2014.01.10),
  psmisc,
  parted,
  ssft,
