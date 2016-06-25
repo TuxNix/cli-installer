@@ -1,3 +1,11 @@
+cli-installer (0.4.0) unstable; urgency=medium
+
+  * back to the old version schema - cli-installer should have nearly 
+    the same version as fll installer
+  * removed some really not needed versions
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 25 Jun 2016 11:37:56 +0200
+
 cli-installer (2014.01.10) unstable; urgency=medium
 
   * dependency versions changed fll-installer and fll-live-initscripts

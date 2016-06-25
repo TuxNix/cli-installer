@@ -5,22 +5,22 @@ Maintainer: Alf Gaida <agaida@siduction.org>
 Uploaders: Ovidiu Angelescu <convbsd@siduction.net>,
            J. Hamatoma <hama@siduction.net> 
 Build-Depends: debhelper (>= 9)
-Standards-Version: 3.9.5
+Standards-Version: 3.9.8
 Vcs-Git: git://git.siduction.org/packages/siduction-repository/cli-installer.git
 Vcs-Browser: http://git.siduction.org/?p=packages/siduction-repository/cli-installer.git
 
 Package: cli-installer
 Architecture: all
 Depends: ${shlibs:Depends},
- ${misc:Depends},
- fll-installer (>= 2014.01.10),
- siduction-scripts (>= 0.4.18),
- fll-live-initscripts (>= 2014.01.10),
- psmisc,
- parted,
- ssft,
- udev (>= 0.146),
- util-linux (>= 2.16.1)
+         ${misc:Depends},
+         fll-installer,
+         siduction-scripts (>= 0.4.18),
+         fll-live-initscripts,
+         psmisc,
+         parted,
+         ssft,
+         udev,
+         util-linux
 Recommends: dialog
 Description: Cli installer for siduction
  Minimal textmode GUI for installing a siduction system to disk for use on
