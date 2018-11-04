@@ -1,6 +1,12 @@
+cli-installer (0.4.1) unstable; urgency=medium
+
+  * Test /usr/bin/setupcon and execute it
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 04 Nov 2018 18:59:16 +0100
+
 cli-installer (0.4.0) unstable; urgency=medium
 
-  * back to the old version schema - cli-installer should have nearly 
+  * back to the old version schema - cli-installer should have nearly
     the same version as fll installer
   * removed some really not needed versions
 
@@ -9,7 +15,7 @@ cli-installer (0.4.0) unstable; urgency=medium
 cli-installer (2014.01.10) unstable; urgency=medium
 
   * dependency versions changed fll-installer and fll-live-initscripts
-    2014.01.10 
+    2014.01.10
 
  -- Alf Gaida <agaida@siduction.org>  Thu, 09 Jan 2014 23:19:17 +0100
 
@@ -49,8 +55,8 @@ cli-installer (0.3.4) unstable; urgency=low
   * Add parted as dependency
 
   [ Alf Gaida ]
-  * rebuild fixes #845 
-  * change version from nmu to maintainer 
+  * rebuild fixes #845
+  * change version from nmu to maintainer
 
  -- Alf Gaida <agaida@siduction.org>  Thu, 13 Sep 2012 23:50:00 +0200
 
@@ -80,10 +86,10 @@ cli-installer (0.3.3) unstable; urgency=low
       (paragraph at line 5) - fixed
     - cli-installer: extended-description-line-too-long
     - cli-installer: syntax-error-in-debian-changelog line 28 "badly formatted
-      trailer line" - fixed, if possible, use dch 
-  * unfixed: cli-installer: binary-without-manpage usr/sbin/cli-installer  
-  * unfixed: W: cli-installer source: unknown-field-in-dsc original-maintainer 
-  * .gitignore added 
+      trailer line" - fixed, if possible, use dch
+  * unfixed: cli-installer: binary-without-manpage usr/sbin/cli-installer
+  * unfixed: W: cli-installer source: unknown-field-in-dsc original-maintainer
+  * .gitignore added
 
  -- Alf Gaida <agaida@siduction.org>  Sat, 08 Sep 2012 22:51:39 +0200
 

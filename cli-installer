@@ -1,37 +1,37 @@
-#!/bin/sh                                                                   
-#                                                                                 
+#!/bin/sh
+#
 # Copyright  (C) 2012-2013 Alf Gaida <agaida@siduction.org>
-#                2012      Sebastian Görgen <zeppo@siduction.net>                                      
-#                2009-2010 Nikolas Poniros <edhunter@sidux.com>                                      
-#                          
+#                2012      Sebastian Görgen <zeppo@siduction.net>
+#                2009-2010 Nikolas Poniros <edhunter@sidux.com>
+#
 # heavily based on install-gui written by
-#	Horst Tritremmel <hjt@users.berlios.de>                        
-#                                                                                 
-# This program is free software; you can redistribute it and/or                   
-# modify it under the terms of the GNU General Public License                     
-# as published by the Free Software Foundation; either version 2                  
-# of the License, or (at your option) any later version.                          
-#                                                                                 
-# This program is distributed in the hope that it will be useful,                 
-# but WITHOUT ANY WARRANTY; without even the implied warranty of                  
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                   
-# GNU General Public License for more details.                                    
-#                                                                                 
-# You should have received a copy of the GNU General Public License               
+#	Horst Tritremmel <hjt@users.berlios.de>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
 # along with this package; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-# MA 02110-1301, USA.                                                             
-#                                                                                 
-# On Debian GNU/Linux systems, the text of the GPL license can be                 
-# found in /usr/share/common-licenses/GPL.                                        
-#                                                                                 
+# MA 02110-1301, USA.
+#
+# On Debian GNU/Linux systems, the text of the GPL license can be
+# found in /usr/share/common-licenses/GPL.
+#
 # version: 0.2.9
 #-----------------------------------------------------------------------
 
 # Short description of the script:
 # The script creates the config file ($HOME/.sidconfig) needed by the
 # fll-installer and then calls the fll-installer to install siduction
-# using said config file. 
+# using said config file.
 # Exit codes are:
 #     0 if successful,
 #     1 if user aborts before the config file is written
@@ -51,6 +51,8 @@ call_help ()
 	echo "		Default is dialog if installed"
 	exit
 }
+
+[ -x /usr/bin/setupcon ] && /usr/bin/setupcon
 
 while getopts vhI: opt
 	do
@@ -117,7 +119,7 @@ fi
 
 # If we use dialog as front-end then redirect all stderr to ERROR_LOG
 if [ $SSFT_FRONTEND = "dialog" ]; then
-	
+
 	# Log file to write in potential error messages
 	ERROR_LOG=$(mktemp /tmp/error_log.XXXXXXXX)
 
@@ -174,7 +176,7 @@ yesno ()
 # and exit the program
 # Be carefull of the exit_code used! Use exit_code = 2 if you dont want
 # the config to be deleted
-error_msg () 
+error_msg ()
 {
 	title="ERROR"
 	msg="$1"
@@ -189,7 +191,7 @@ error_msg ()
 	exit $exit_code
 }
 
-display_msg () 
+display_msg ()
 {
 	title="$1"
 	msg="$2"
@@ -201,7 +203,7 @@ display_msg ()
 # $2 is the text for ssft_select_multiple
 # $@ the items list for ssft_select_multiple
 # returns the exit code of ssft_select_multiple
-select_more () 
+select_more ()
 {
 	title="$1"
 	msg="$2"
@@ -215,7 +217,7 @@ select_more ()
 # $2 is the text for ssft_select_single
 # $@ the items list for ssft_select_single
 # returns the exit code of ssft_select_single
-select_one () 
+select_one ()
 {
 	title="$1"
 	msg="$2"
@@ -224,7 +226,7 @@ select_one ()
 	return $?
 }
 
-input_pass () 
+input_pass ()
 {
 	title="Input Password"
 	msg="$1"
@@ -232,7 +234,7 @@ input_pass ()
 	return $?
 }
 
-input_string () 
+input_string ()
 {
 	title="$1"
 	msg="$2"
@@ -244,7 +246,7 @@ input_string ()
 # $1 the string
 # $2 string type can be "user" "root" "username" "hostname" "real name"
 # $3 var to check if string is a password
-length_check () 
+length_check ()
 {
 	string="$1"
 	type="$2"
@@ -291,7 +293,7 @@ length_check ()
 # $1 password 1
 # $2 password 2
 # $3 password type "user" or "root"
-compare_pass () 
+compare_pass ()
 {
 	pass1="${1}"
 	pass2="${2}"
@@ -334,7 +336,7 @@ check_for_mounted_disks ()
 	title="Unmount Partitions"
 	msg="Some partitions are still mounted.
 		You need to unmount them for the installer to continue.
-		
+
 		Unmount now?"
 	yesno "${title}" "${msg}"
 	if [ $? -eq 0 ]; then
@@ -343,18 +345,18 @@ check_for_mounted_disks ()
 		if [ $exit_status -eq 1 ]; then
 			if [ $before_config_write -eq 1 ]; then
 			    msg="Could not unmount all partitions
-    
+
 				Aborting.."
 			else
 			    msg="Could not unmount all partitions
-    
+
 				Aborting..
-			      
+
 				I: If you choose 'no' the configuration file will stay
 				in ${CONFIG_FILE}!"
 			fi
 			error_msg "${msg}" "$before_config_write"
-		else 
+		else
 			display_msg "${title}" "Partitions unmounted successfully"
 		fi
 	else
@@ -364,7 +366,7 @@ check_for_mounted_disks ()
 	    else
 		msg="You chose not to unmount the partitions
 			Aborting..
-      
+
 			I: If you choose 'no' the configuration file will stay
 			in ${CONFIG_FILE}!"
 	    fi
@@ -374,9 +376,9 @@ check_for_mounted_disks ()
 }
 
 # Function to check if there is a username USERNAME in the home partition
-# chosen by the user. If yes it asks for a new username or removal of the 
+# chosen by the user. If yes it asks for a new username or removal of the
 # mount point
-home_exists () 
+home_exists ()
 {
 	# As long as there is a HOME_PARTITION set ask for new name or mount point removal
 	while [ -n "${HOME_PARTITION}" ]
@@ -420,11 +422,11 @@ home_exists ()
 }
 
 # Function to call cfdisk_wrapper to format the hard disk
-format_disk () 
+format_disk ()
 {
 	title="Format disk"
 	msg="Do you want to partition your hard disk?"
-	yesno "${title}" "${msg}" 
+	yesno "${title}" "${msg}"
 
 	if [ $? -eq 0 ]; then
 		msg="Please choose a partitioning program. Available programs are:"
@@ -448,19 +450,19 @@ format_disk ()
 			If you have not at least one partition on the disk
 			the installer will not be able to complete the installation
 			If you do not have a partition please abort now!
-		
+
 			Press ctrl+C to abort or ENTER to continue"
 		display_msg "${title}" "${msg}"
 	fi
 }
 
 # Function for timezone selection
-set_timezone () 
+set_timezone ()
 {
 	#initialTZ="$(cat /etc/timezone)"
 	title="Timezone selection"
 	msg="Current timezone is: "$(cat /etc/timezone)"
-	
+
 		Do you want to change the timezone?"
 	yesno "${title}" "${msg}"
 
@@ -526,12 +528,12 @@ custom_root ()
 			# Get just the partition name like sda1, sdb2 etc
 			partition=$(echo "${ROOT_PARTITION}" | cut -d "/" -f 3)
 			# Get the mapper name in case user choose a mapper
-			if [ "$partition" = "mapper" ]; then 
+			if [ "$partition" = "mapper" ]; then
 				partition=$(echo "${ROOT_PARTITION}" | cut -d "/" -f 4)
 			fi
 
 			# Check if the disk / is on is USB
-			if [ -n "$(/usr/share/fll-installer-common/disk --usb="${partition%?}")" ]; then 
+			if [ -n "$(/usr/share/fll-installer-common/disk --usb="${partition%?}")" ]; then
 				IS_DISK_USB="yes"
 			fi
 		else
@@ -558,7 +560,7 @@ custom_root ()
 #-------------------------------------------------------------------------------------------------------------------------
 
 # Only for root partition
-format_root () 
+format_root ()
 {
 	title="Format hard disk"
 	msg="Do you want the installer to format your
@@ -572,7 +574,7 @@ format_root ()
 }
 
 # Only for root partition
-select_fs () 
+select_fs ()
 {
 	title="Filesystem selection"
 	msg="Select a file system for your root partition"
@@ -588,7 +590,7 @@ select_fs ()
 
 }
 
-choose_root () 
+choose_root ()
 {
 # Create a list of available partitions
 # and add those into the temp file (update partitions after partitioning)
@@ -611,12 +613,12 @@ choose_root ()
 	# Get just the partition name like sda1, sdb2 etc
 	partition=$(echo "${ROOT_PARTITION}" | cut -d "/" -f 3)
 	# Get the mapper name in case user choose a mapper
-	if [ "$partition" = "mapper" ]; then 
+	if [ "$partition" = "mapper" ]; then
 		partition=$(echo "${ROOT_PARTITION}" | cut -d "/" -f 4)
 	fi
 
 	# Check if the disk / is on is USB
-	if [ -n "$(/usr/share/fll-installer-common/disk --usb="${partition%?}")" ]; then 
+	if [ -n "$(/usr/share/fll-installer-common/disk --usb="${partition%?}")" ]; then
 		IS_DISK_USB="yes"
 	fi
 
@@ -630,13 +632,13 @@ choose_root ()
 }
 
 # set mount points for partitions other than root
-set_mount_points () 
+set_mount_points ()
 {
 	title="Set mount points"
 	msg="Do you want to set mount points for other partitions?
-	
+
 		W: The partitions need to be already formated
-	
+
 		I: The root partition is already set and you should not
 		set it again"
 	yesno "${title}" "${msg}"
@@ -655,7 +657,7 @@ set_mount_points ()
 					# Get just the partition name like sda1, sdb2 etc
 					partition_name=$(echo "${partition}" | cut -d "/" -f 3)
 					# Get the mapper name in case user choose a mapper
-					if [ "$partition_name" = "mapper" ]; then 
+					if [ "$partition_name" = "mapper" ]; then
 						partition_name=$(echo "${partition}" | cut -d "/" -f 4)
 					fi
 
@@ -683,7 +685,7 @@ set_mount_points ()
 							HOME_PARTITION="${partition}"
 							CHECK_IF_HOME_EXISTS="yes"
 							;;
-						boot )	
+						boot )
 							mount_point="${partition}:/boot"
 							# Need this to make sure that there is no space
 							# in front of the first entry
@@ -693,7 +695,7 @@ set_mount_points ()
 								MOUNT_POINT_LIST="${mount_point}"
 							fi
 							;;
-						opt )	
+						opt )
 							mount_point="${partition}:/opt"
 							# Need this to make sure that there is no space
 							# in front of the first entry
@@ -703,7 +705,7 @@ set_mount_points ()
 								MOUNT_POINT_LIST="${mount_point}"
 							fi
 							;;
-						root )	
+						root )
 							mount_point="${partition}:/root"
 							# Need this to make sure that there is no space
 							# in front of the first entry
@@ -743,7 +745,7 @@ set_mount_points ()
 								MOUNT_POINT_LIST="${mount_point}"
 							fi
 							;;
-						* )	
+						* )
 							error_msg "Invalid option" "1"
 					esac
 				else
@@ -754,9 +756,9 @@ set_mount_points ()
 	display_msg "${title}" "Finished setting mount points"
 }
 
-# Asks the user if the installer should not check if there is 
+# Asks the user if the installer should not check if there is
 # enough space on the partition
-ignore_disk_space () 
+ignore_disk_space ()
 {
 	title="Check for space"
 	msg="Do you want the program NOT to check if there is enough space to install siduction?
@@ -767,7 +769,7 @@ ignore_disk_space ()
 	fi
 }
 
-auto_detect_swap () 
+auto_detect_swap ()
 {
 	title="Swap autodetect"
 	msg="Do you want the installer to autodetect swap?"
@@ -777,7 +779,7 @@ auto_detect_swap ()
 	fi
 }
 
-select_swap () 
+select_swap ()
 {
 	if [ -s ${SWAP_PART_LIST} ]; then
 		title="Select swap"
@@ -795,7 +797,7 @@ select_swap ()
 	fi
 }
 
-input_real_name () 
+input_real_name ()
 {
 	title="Input Real Name"
 	msg="Please enter your real name"
@@ -815,9 +817,9 @@ input_real_name ()
 			title="Input Real Name"
 			msg="Your input contains characters which are not allowed
 				Characters which are not allowed are:
-		
+
 				${NAME_NAME_NOT_ALLOWED_CHARS}
-			
+
 				Please enter again your real name"
 			input_string "${title}" "${msg}"
 			if [ $? -eq 0 ]; then
@@ -832,7 +834,7 @@ input_real_name ()
 	REAL_NAME=$( echo "$name" | sed -e "s/ /\\\ /g" -e "s/'/\\\'/g" )
 }
 
-input_username () 
+input_username ()
 {
 	title="Input username"
 	msg="Please input your username"
@@ -853,7 +855,7 @@ input_username ()
 				${USERNAME_ALLOWED_CHARS}
 
 				Please enter username"
-		
+
 			input_string "${title}" "${msg}"
 			if [ $? -eq 0 ]; then
 				USERNAME="${SSFT_RESULT}"
@@ -869,7 +871,7 @@ input_username ()
 input_user_pass ()
 {
 	msg="Enter a user password. Will not be echoed
-	    
+
 	    I: Do not use a minus (-) as the first character of the password,
 		a space as the last or a backslash (\) anywhere in the password
 		as those are currently not supported."
@@ -891,7 +893,7 @@ input_user_pass ()
 	fi
 
 	compare_pass "${USERPASS}" "${pass2}" "user"
-	# If the passwords dont pass the test at the first time then 
+	# If the passwords dont pass the test at the first time then
 	# USERPASS will be set by length_check which is called in compare_pass
 	#pass1="${USERPASS}"
 	#pass2="$(escape_chars "$pass1")"
@@ -903,7 +905,7 @@ input_user_pass ()
 input_root_pass ()
 {
 	msg="Enter a root password. Will not be echoed
-	    
+
 	    I: Do not use a minus (-) as the first character of the password,
 		a space as the last or a backslash (\) anywhere in the password
 		as those are currently not supported."
@@ -925,7 +927,7 @@ input_root_pass ()
 	fi
 
 	compare_pass "${ROOTPASS}" "${pass2}" "root"
-	# If the passwords dont pass the test at the first time then 
+	# If the passwords dont pass the test at the first time then
 	# ROOTPASS will be set by length_check which is called in compare_pass
 	#pass1="${ROOTPASS}"
 	#pass2="$(escape_chars "$pass1")"
@@ -934,7 +936,7 @@ input_root_pass ()
 	ROOTPASS="$( mkpasswd --method=sha-256 "${ROOTPASS}" | sed 's/\$/\\$/g' )"
 }
 
-input_hostname () 
+input_hostname ()
 {
 	title="Input hostname"
 	msg="Please input hostname"
@@ -953,7 +955,7 @@ input_hostname ()
 				Allowed characters are:
 
 				${HOSTNAME_ALLOWED_CHARS}
-  
+
 				${HOSTNAME_ALLOWED_CHAR_OTHERS}
 
 				W: The hostname must start with a letter!
@@ -971,7 +973,7 @@ input_hostname ()
 
 # Function so that the user can input some services that should
 # start during boot
-input_services () 
+input_services ()
 {
 	title="Services"
 	msg="Select the services you want to start on boot"
@@ -1017,7 +1019,7 @@ place_boot_loader ()
 # Function to ask the user if he wants the partitions to be
 # auto-mounted on boot
 # default is yes
-auto_mount_partitions () 
+auto_mount_partitions ()
 {
 	title="Automount"
 	msg="Do you want the partitions to be automounted on boot?"
@@ -1027,7 +1029,7 @@ auto_mount_partitions ()
 	fi
 }
 
-write_config () 
+write_config ()
 {
 	echo "REGISTERED=' SYSTEM_MODULE HD_MODULE HD_FORMAT HD_FSTYPE HD_CHOICE HD_MAP HD_IGNORECHECK SWAP_MODULE SWAP_AUTODETECT SWAP_CHOICES NAME_MODULE NAME_NAME USER_MODULE USER_NAME USERPASS_MODULE USERPASS_CRYPT ROOTPASS_MODULE ROOTPASS_CRYPT HOST_MODULE HOST_NAME SERVICES_MODULE SERVICES_START BOOT_MODULE BOOT_LOADER BOOT_DISK BOOT_WHERE AUTOLOGIN_MODULE INSTALL_READY HD_AUTO'" > ${CONFIG_FILE}
 
@@ -1157,7 +1159,7 @@ set_timezone
 
 format_root
 
-if [ -z "${ROOT_PARTITION}" ]; then	
+if [ -z "${ROOT_PARTITION}" ]; then
 	# root partition was not selected manually above
 	choose_root
 fi
