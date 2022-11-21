@@ -695,6 +695,14 @@ set_mount_points ()
 								MOUNT_POINT_LIST="${mount_point}"
 							fi
 							;;
+						efi )
+							mount_point="${partition}:/boot/efi"
+							if [ -n "${MOUNT_POINT_LIST}" ]; then
+								MOUNT_POINT_LIST="${MOUNT_POINT_LIST} ${mount_point}"
+							else
+								MOUNT_POINT_LIST="${mount_point}"
+							fi
+							;;
 						opt )
 							mount_point="${partition}:/opt"
 							# Need this to make sure that there is no space
