@@ -1,3 +1,15 @@
+cli-installer (0.4.3) unstable; urgency=medium
+
+  * fix efi
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Mon, 21 Nov 2022 19:48:08 +0100
+
+cli-installer (0.4.2) unstable; urgency=medium
+
+  * add efi partition
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Mon, 21 Nov 2022 19:20:10 +0100
+
 cli-installer (0.4.1) unstable; urgency=medium
 
   * Test /usr/bin/setupcon and execute it

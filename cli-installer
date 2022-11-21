@@ -667,7 +667,7 @@ set_mount_points ()
 					# Find the partition name $partition_name and remove it from the list
 					sed /${partition_name}/d ${PARTITIONS_LIST_2} > ${PARTITIONS_LIST}
 					msg="Choose a mount point for ${partition}"
-					available_mount_points="home boot opt root tmp usr var"
+					available_mount_points="home boot efi opt root tmp usr var"
 					select_one "${title}" "${msg}" "${available_mount_points}"
 					# If user pressed cancel break out of the loop
 
