@@ -140,7 +140,7 @@ MOUNT_POINT_LIST=""
 IGNORE_DISK_SPACE="no"
 AUTO_SWAP="yes"
 SWAP_LIST=""
-REAL_NAME=""
+REAL_NAME="foobar"
 USERNAME=""
 USERPASS=""
 ROOTPASS=""
@@ -805,42 +805,42 @@ select_swap ()
 	fi
 }
 
-input_real_name ()
-{
-	title="Input Real Name"
-	msg="Please enter your real name"
+#input_real_name ()
+#{
+#	title="Input Real Name"
+#	msg="Please enter your real name"
 
-	input_string "${title}" "${msg}"
-	if [ $? -eq 0 ]; then
-		name="${SSFT_RESULT}"
-	fi
+#	input_string "${title}" "${msg}"
+#	if [ $? -eq 0 ]; then
+#		name="${SSFT_RESULT}"
+#	fi
 
-	length_check "${name}" "real name" "no" "1" "${title}"
-	# Need this as length_check sets REAL_NAME but I still
-	# need to check chars
-	name="${REAL_NAME}"
-	# Make sure that name contains only valid characters
-	while [ -n "$( echo "${name}" | grep "[${NAME_NAME_NOT_ALLOWED_CHARS}]" )" ]
-		do
-			title="Input Real Name"
-			msg="Your input contains characters which are not allowed
-				Characters which are not allowed are:
+#	length_check "${name}" "real name" "no" "1" "${title}"
+#	# Need this as length_check sets REAL_NAME but I still
+#	# need to check chars
+#	name="${REAL_NAME}"
+#	# Make sure that name contains only valid characters
+#	while [ -n "$( echo "${name}" | grep "[${NAME_NAME_NOT_ALLOWED_CHARS}]" )" ]
+#		do
+#			title="Input Real Name"
+#			msg="Your input contains characters which are not allowed
+#				Characters which are not allowed are:
 
-				${NAME_NAME_NOT_ALLOWED_CHARS}
+#				${NAME_NAME_NOT_ALLOWED_CHARS}
 
-				Please enter again your real name"
-			input_string "${title}" "${msg}"
-			if [ $? -eq 0 ]; then
-				name="${SSFT_RESULT}"
-			fi
+#				Please enter again your real name"
+#			input_string "${title}" "${msg}"
+#			if [ $? -eq 0 ]; then
+#				name="${SSFT_RESULT}"
+#			fi
 
-			length_check "${name}" "real name" "no" "1" "${title}"
+#			length_check "${name}" "real name" "no" "1" "${title}"
 
-			name="${REAL_NAME}" # length_check set the REAL_NAME but i still need to escape chars
-		done
-	## Used to escape spaces and quotes (')
-	REAL_NAME=$( echo "$name" | sed -e "s/ /\\\ /g" -e "s/'/\\\'/g" )
-}
+#			name="${REAL_NAME}" # length_check set the REAL_NAME but i still need to escape chars
+#		done
+#	## Used to escape spaces and quotes (')
+#	REAL_NAME=$( echo "$name" | sed -e "s/ /\\\ /g" -e "s/'/\\\'/g" )
+#}
 
 input_username ()
 {
