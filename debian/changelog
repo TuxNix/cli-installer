@@ -1,3 +1,9 @@
+cli-installer (0.4.4) unstable; urgency=medium
+
+  * remove input of realname
+
+ -- Torsten Wohlfarth <towo@siduction.org>  Sun, 19 Feb 2023 13:01:57 +0100
+
 cli-installer (0.4.3) unstable; urgency=medium
 
   * fix efi
