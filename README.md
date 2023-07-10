@@ -48,3 +48,5 @@ CONFIG_FILE exists. (line 116)
 escape_chars ()
 
 set-bootloader ()
+
+create_boot_disk ()
