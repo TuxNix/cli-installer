@@ -1,3 +1,12 @@
+cli-installer (0.4.5) unstable; urgency=medium
+
+  * enable empty realname
+  * cleanup functions yesno, display_msg, input_pass, input_string
+  * change variable NAME_NAME_NOT_ALLOWED_CHARS
+  * remove function escape_chars, set-bootloader, create_boot_disk 
+
+ -- Axel Konrad <emma-konrad@web.de>  Mon, 11 Jul 2023 13:58:48 +0200
+
 cli-installer (0.4.4) unstable; urgency=medium
 
   * remove input of realname
